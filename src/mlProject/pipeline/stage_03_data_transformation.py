@@ -9,7 +9,7 @@ STAGE_NAME = "Data Transformation stage"
 class DataTransformationTrainingPipeline:
     def __init__(self):
         pass
-    
+
     def main(self):
         try:
             with open(Path("artifacts\data_validation\status.txt"),"r") as f:
@@ -18,15 +18,14 @@ class DataTransformationTrainingPipeline:
             if status=="True":
                 config = ConfigerationManager()
                 data_transformation_config = config.get_data_transformation_config()
-                data_transformation = DatTransformation(CONFIG=data_transformation_config)
+                data_transformation = DatTransformation(config=data_transformation_config)
                 data_transformation.train_test_spliting()
-            
+
             else:
                 raise Exception("Your data Schema is not valid")
-        
+
         except Exception as e:
             print(e)
-
 
 
 if __name__ == '__main__':
@@ -35,7 +34,7 @@ if __name__ == '__main__':
         obj = DataTransformationTrainingPipeline()
         obj.main()
         logger.info(f">>>>> stage {STAGE_NAME} completed <<<<<\n\nx================x")
-    
+
     except Exception as e:
         logger.exception(e)
         raise e
