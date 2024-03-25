@@ -17,10 +17,9 @@ class ModelTrainer:
         test_x  = test_data.drop([self.config.target_column], axis=1)
         train_y = train_data[[self.config.target_column]]
         test_y = test_data[[self.config.target_column]]
-
+        print(self.config.alpha)
         lr = ElasticNet(alpha=self.config.alpha, l1_ratio=self.config.l1_ratio, random_state=42)
+        
         lr.fit(train_x, train_y)
 
         joblib.dump(lr, os.path.join(self.config.root_dir, self.config.model_name))
-
-
